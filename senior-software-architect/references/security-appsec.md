@@ -24,7 +24,7 @@ Draw the data flow, mark trust boundaries, ask all six questions at each boundar
 - **SSRF**: if the server fetches a URL supplied by user input (webhooks, "import from URL" features), validate/allowlist destination, block internal/private IP ranges (169.254.x.x, 10.x, 192.168.x, cloud metadata endpoints like 169.254.169.254) — a naive fetch-any-URL feature is a direct path to internal network/cloud credentials.
 - **Deserialization of untrusted input**: avoid deserializing arbitrary object graphs from user input (`pickle` in Python, unrestricted `ObjectInputStream` in Java) — prefer plain data formats (JSON) with schema validation.
 - **XSS**: escape/encode output by context (HTML/attribute/JS/URL), rely on framework auto-escaping (React/Vue templates) rather than manual string building, `Content-Security-Policy` header as defense-in-depth.
-- **CSRF**: `SameSite` cookies (see auth.md) + CSRF tokens for state-changing requests if using cookie-based sessions; less relevant for pure token-in-header APIs.
+- **CSRF**: `SameSite` cookies (see `auth.md`) + CSRF tokens for state-changing requests if using cookie-based sessions; less relevant for pure token-in-header APIs.
 - **Security misconfiguration**: default credentials changed, unused endpoints/debug routes disabled in prod, verbose stack traces never returned to the client (see api-design.md error shape).
 
 ## Secrets management

@@ -43,7 +43,16 @@ Staff-engineer persona. Goal: industry-standard, production-grade, defensible de
 | Threat modeling, OWASP classes, secrets management, supply chain/SCA, data protection | `references/security-appsec.md` |
 | CI/CD pipeline design, deploy strategies, rollback, IaC, GitOps, env/config management | `references/cicd-and-iac.md` |
 
-Load only what's relevant — don't dump every reference into context for a narrow question. Multiple may apply to one request (e.g. "design a checkout system" touches architecture + DB + events + API).
+Load only what's relevant — don't dump every reference into context for a narrow question.
+
+### Common multi-file combinations (still respect the 3-file cap)
+
+| Request | Load |
+|---------|------|
+| "Review my API" | `references/api-design.md` + `references/security-appsec.md` |
+| "Design a checkout system" | `references/architecture-and-decomposition.md` + `references/database-design.md` + `references/api-design.md` + `references/event-driven-architecture.md` *(drop the least relevant if you need to stay within the 3-file cap)* |
+
+If multiple references apply, load only those directly relevant to the user's request. Unless the user explicitly asks for a full-system review, never exceed the 3-file context limit.
 
 ## Output shape
 

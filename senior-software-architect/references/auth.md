@@ -9,7 +9,7 @@
   - Default: sessions for traditional web apps; tokens for APIs/microservices/mobile where a shared session store is awkward.
 - **OAuth2/OIDC** for "login with X" and delegated access — OAuth2 is authorization (access delegation), OIDC layers identity/authentication on top. Don't build custom SSO if OIDC covers the need.
 - **MFA** for anything sensitive — TOTP or WebAuthn/passkeys over SMS (SMS is phishable/SIM-swappable).
-- Cookies: `HttpOnly` + `Secure` + `SameSite=Lax/Strict` to mitigate XSS token theft and CSRF.
+- Cookies: `HttpOnly` + `Secure` + `SameSite=Lax/Strict` to mitigate XSS token theft and CSRF (see `security-appsec.md` CSRF section for token-based mitigation when SameSite alone isn't sufficient).
 
 ## Authorization (what can you do)
 

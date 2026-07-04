@@ -92,9 +92,11 @@
     {
       "id": 10,
       "prompt": "Quick throwaway script to rename all files in a folder by date — don't need anything fancy.",
-      "expected_output": "Should NOT trigger, or if it does, should explicitly say full layering/architecture is overkill here per the 'when to not apply strictly' guidance.",
+      "expected_output": "Skill triggers but explicitly declines to impose architecture, names it prototype/throwaway per clean-code-principles.md 'when to not apply strictly' section, gives simple direct script.",
       "expectations": [
-        "Skill either doesn't trigger, or triggers but explicitly declines to impose architecture (calls it prototype/throwaway and says so)"
+        "Skill triggers (loads clean-code-principles.md at most)",
+        "Explicitly states full layering/SOLID is overkill here and why",
+        "Delivers simple script, not layered architecture"
       ]
     },
     {
@@ -112,10 +114,7 @@
       "id": 12,
       "prompt": "Fix this off-by-one error in my for loop.",
       "expected_output": "Should NOT trigger. Single-function bug fix, no structural implication.",
-      "expectations": [
-        "Skill does not trigger",
-        "Answered as a direct bug fix"
-      ]
+      "expectations": ["Skill does not trigger", "Answered as a direct bug fix"]
     }
   ]
 }
