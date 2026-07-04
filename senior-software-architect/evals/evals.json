@@ -1,0 +1,121 @@
+{
+  "skill_name": "senior-software-architect",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a 4-person startup with 200 users. Should we split our app into microservices now to be ready for scale?",
+      "expected_output": "Should trigger. Recommends modular monolith, names the 4 concrete conditions for splitting into services, flags premature microservices as overengineering for this team size.",
+      "expectations": [
+        "Skill triggers and loads architecture-and-decomposition.md",
+        "Explicitly recommends against microservices given team size",
+        "States at least one concrete condition under which splitting would make sense"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review my API design: POST /getUserOrders with the user ID in the request body.",
+      "expected_output": "Should trigger. Flags GET-semantics-via-POST and non-resource-noun naming as REST violations, references api-design.md conventions.",
+      "expectations": [
+        "Skill triggers and loads api-design.md",
+        "Names the specific REST violation (verb-based endpoint, wrong HTTP method semantics)",
+        "Proposes a corrected endpoint shape"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Is this a good index for a query that filters WHERE status = 'active' AND created_at > ?",
+      "expected_output": "Should trigger narrowly — loads only database-design.md, not multiple files, since this is a narrow question.",
+      "expectations": [
+        "Skill triggers and loads database-design.md only (context-budget rule respected)",
+        "Addresses composite index column ordering by selectivity",
+        "Mentions EXPLAIN ANALYZE or measuring before assuming"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "How should I structure auth between my 6 microservices?",
+      "expected_output": "Should trigger, loads auth.md and likely microservices.md for service-to-service auth angle.",
+      "expectations": [
+        "Skill triggers",
+        "Distinguishes AuthN at edge vs AuthZ close to resource",
+        "Covers service-to-service auth (mTLS or signed tokens), not just end-user auth"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "What test strategy should we use for our checkout service before our next release?",
+      "expected_output": "Should trigger, loads testing-strategy.md, possibly cicd-and-iac.md for CI gating angle.",
+      "expectations": [
+        "Skill triggers and loads testing-strategy.md",
+        "Recommends test pyramid proportions, not just 'write more tests'",
+        "Flags checkout as a candidate for E2E coverage given business criticality"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "We're about to launch a feature that lets users import data from any URL they paste in. Anything to worry about?",
+      "expected_output": "Should trigger, loads security-appsec.md, specifically flags SSRF risk.",
+      "expectations": [
+        "Skill triggers and loads security-appsec.md",
+        "Names SSRF specifically, not just generic 'validate input'",
+        "Mentions blocking internal/private IP ranges and cloud metadata endpoints"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "How should we roll out a risky change to our payment flow without an all-or-nothing cutover?",
+      "expected_output": "Should trigger, loads cicd-and-iac.md, recommends canary + feature flags combo.",
+      "expectations": [
+        "Skill triggers and loads cicd-and-iac.md",
+        "Distinguishes deploy vs release",
+        "Recommends canary and/or feature flags rather than a single strategy without tradeoffs"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Write a function to reverse a linked list in Python.",
+      "expected_output": "Should NOT trigger. Pure algorithm/DSA question with no system or architecture component.",
+      "expectations": [
+        "Skill does not trigger",
+        "Answered as a direct coding question, no architecture framing imposed"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "This CSS grid isn't centering my div, what's wrong?",
+      "expected_output": "Should NOT trigger. Frontend styling issue, no state/architecture angle.",
+      "expectations": [
+        "Skill does not trigger",
+        "Answered as a direct CSS question"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Quick throwaway script to rename all files in a folder by date — don't need anything fancy.",
+      "expected_output": "Should NOT trigger, or if it does, should explicitly say full layering/architecture is overkill here per the 'when to not apply strictly' guidance.",
+      "expectations": [
+        "Skill either doesn't trigger, or triggers but explicitly declines to impose architecture (calls it prototype/throwaway and says so)"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Design a checkout system for an e-commerce platform expecting 50k orders/day at peak, small team of 8 engineers.",
+      "expected_output": "Should trigger broadly across architecture, database, event-driven, and API — this is the explicit multi-file case the context-budget rule allows exceeding 3 files for.",
+      "expectations": [
+        "Skill triggers and loads multiple relevant reference files (architecture, database, api, likely event-driven)",
+        "States assumptions about scale/team size before designing",
+        "Provides tradeoffs table, not just a single verdict",
+        "Right-sizes recommendation to 8-engineer team, doesn't over-recommend microservices/event-sourcing without justification"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Fix this off-by-one error in my for loop.",
+      "expected_output": "Should NOT trigger. Single-function bug fix, no structural implication.",
+      "expectations": [
+        "Skill does not trigger",
+        "Answered as a direct bug fix"
+      ]
+    }
+  ]
+}
