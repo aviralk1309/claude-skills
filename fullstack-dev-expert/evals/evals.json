@@ -1,0 +1,82 @@
+{
+  "skill_name": "fullstack-dev-expert",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Why does my React component re-render every time the parent re-renders, even though I wrapped it in React.memo? I'm passing an onClick handler as a prop.",
+      "expected_output": "Identifies inline function prop creating a new reference each render, defeating React.memo. Recommends useCallback or moving handler out, explains why memo alone isn't enough.",
+      "expectations": [
+        "Correctly identifies new function/object reference per render as root cause",
+        "Recommends useCallback (or equivalent) rather than removing memo",
+        "Explains reasoning, not just a code fix",
+        "Depth matches an intermediate React user, not a 101 explainer"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add an endpoint to my NestJS app for updating a user's profile (name, bio). Here's my current UsersController and UsersService (assume standard Nest structure with Prisma).",
+      "expected_output": "A PATCH endpoint with DTO validation, ownership check, proper status codes, and error handling consistent with production standards.",
+      "expectations": [
+        "Uses PATCH (not PUT) for partial update",
+        "Includes input validation (DTO with class-validator or Zod)",
+        "Checks that the requesting user owns the profile being updated, not just trusts the ID",
+        "Returns appropriate status codes and consistent error shape"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My Postgres query is slow: SELECT * FROM orders WHERE customer_id = $1 ORDER BY created_at DESC LIMIT 20. The orders table has 5 million rows.",
+      "expected_output": "Asks for or reasons about EXPLAIN ANALYZE, suggests a composite index on (customer_id, created_at DESC), explains why, cautions against blind memoization/caching without profiling first.",
+      "expectations": [
+        "Recommends a composite index matching WHERE + ORDER BY columns",
+        "Mentions checking EXPLAIN ANALYZE rather than guessing blind",
+        "Explains why SELECT * matters (or suggests selecting only needed columns) if relevant",
+        "Does not jump straight to caching as the first suggestion"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Refactor this Express route — it has business logic, validation, and DB calls all inline in the handler. [imagine a 40-line route handler mixing all concerns]",
+      "expected_output": "Separates concerns (validation middleware, service layer, thin controller), preserves behavior, explains the refactor is behavior-preserving.",
+      "expectations": [
+        "Extracts validation into middleware or a validation step separate from business logic",
+        "Moves DB/business logic into a service function, leaving the route handler thin",
+        "States explicitly that the refactor preserves existing behavior",
+        "Does not silently introduce new features/behavior changes while refactoring"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Should I use MongoDB or PostgreSQL for a new e-commerce app with products, orders, and customers?",
+      "expected_output": "Recommends PostgreSQL as the default given clearly relational data (orders/customers/products), explains JSONB as the escape hatch for variable product attributes rather than defaulting to Mongo.",
+      "expectations": [
+        "Recommends Postgres as default for this relational domain",
+        "Explains reasoning tied to the specific data shape (orders/customers relations)",
+        "Mentions JSONB as an option for variable product attributes instead of reaching for Mongo",
+        "Does not present both options as equally arbitrary without a recommendation"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "In my Django DRF app, users can hit /api/orders/5/ and see another user's order if they just change the ID in the URL. How do I fix this?",
+      "expected_output": "Identifies broken object-level authorization (IDOR), fixes via filtering get_queryset() by request.user or adding an explicit permission/ownership check, not just relying on IsAuthenticated.",
+      "expectations": [
+        "Correctly names this as an object-level authorization / IDOR issue",
+        "Fix filters the queryset by request.user (or equivalent ownership check) rather than just checking IsAuthenticated",
+        "Explains why IsAuthenticated alone doesn't prevent this",
+        "Uses Django/DRF-appropriate terms (ViewSet, get_queryset, permission class), not generic Node/Express phrasing"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "We're a dev agency building a Next.js + Node app for a client who will take over maintenance after launch with their own 2-person in-house team. Should we use NestJS with a custom microservices setup, or keep it simpler?",
+      "expected_output": "Recommends the simpler option given service-based/handoff context, explains reasoning tied to a small in-house team maintaining it afterward, and references handoff documentation as part of the deliverable.",
+      "expectations": [
+        "Recommends the simpler architecture (not microservices) given a 2-person maintaining team",
+        "Explicitly reasons from the service/handoff context, not just general best practice",
+        "Mentions handoff documentation or maintainability as part of the deliverable",
+        "Does not recommend the more complex option without flagging the maintenance-burden tradeoff"
+      ]
+    }
+  ]
+}

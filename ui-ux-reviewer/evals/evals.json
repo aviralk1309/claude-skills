@@ -1,0 +1,105 @@
+{
+  "skill_name": "ui-ux-reviewer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this login form for UX/accessibility issues:\n\n<form>\n  <input type=\"text\" placeholder=\"Username\">\n  <input type=\"password\" placeholder=\"Password\">\n  <button style=\"background:#ddd;color:#aaa;\">Submit</button>\n</form>",
+      "expected_output": "Structured review flagging missing labels (WCAG 3.3.2), failing button contrast, and generic button copy, with severity tags and a scorecard.",
+      "files": [],
+      "expectations": [
+        "Output flags placeholder-only inputs as a Blocker citing WCAG 3.3.2 or equivalent label-association criterion",
+        "Output computes or states the button contrast ratio and flags it as failing (below 4.5:1)",
+        "Output flags missing autocomplete attributes",
+        "Output flags 'Submit' as generic button copy per UX writing guidance",
+        "Output uses the structured report format (Summary, Findings by severity, Scorecard)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Here's a mobile nav bar: 5 icon-only buttons, each 32x32px, no text labels, no aria-label. Review it for mobile usability.",
+      "expected_output": "Flags touch target size below recommended minimum, missing accessible names on icon buttons, and recognition-over-recall / discoverability concerns for icon-only nav.",
+      "files": [],
+      "expectations": [
+        "Output flags touch target size as too small relative to the 44x44px / 48x48dp industry guidance",
+        "Output flags missing accessible name (aria-label or equivalent) on icon-only buttons as a WCAG 4.1.2 / Name-Role-Value issue",
+        "Output raises a usability concern about icon-only navigation lacking text labels (recognition over recall)",
+        "Output includes severity tags on each finding"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "A signup form clears all entered fields whenever validation fails, forcing the user to retype everything. Is this a UX problem?",
+      "expected_output": "Identifies this as a significant/high-severity UX failure tied to error prevention and user control heuristics, not a minor nitpick.",
+      "files": [],
+      "expectations": [
+        "Output flags the behavior as a high-severity issue (Blocker or Major), not Minor or Suggestion",
+        "Output references a relevant heuristic such as error prevention, user control and freedom, or trust",
+        "Output gives a concrete fix (preserve entered values on validation failure)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review the color palette of a fintech dashboard that currently uses 6 different bright accent colors (red, orange, yellow, green, blue, purple) across buttons and charts with no clear primary color.",
+      "expected_output": "Flags too many competing accent colors, recommends a dominant/secondary/accent structure (60-30-10 rule), and connects palette choice to fintech's need for a trust-conveying, restrained aesthetic.",
+      "files": [],
+      "expectations": [
+        "Output flags the use of 6 accent colors as excessive / causing visual noise",
+        "Output references the 60-30-10 color rule or an equivalent dominant/secondary/accent structure",
+        "Output connects the recommendation to the product's positioning (e.g. fintech should convey trust/stability) rather than giving generic advice only",
+        "Output notes semantic color consistency (e.g. red shouldn't double as both a data color and an error color)"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Review this product page layout for a worldwide audience: prices are hardcoded as \"$19.99\", dates as \"03/04/2026\", and body text is in fixed-width 120px-wide buttons that fit English labels exactly.",
+      "expected_output": "Flags hardcoded USD currency format, ambiguous US-style date format, and fixed-width buttons that will break on translation/text-expansion, with global-readiness framing.",
+      "files": [],
+      "expectations": [
+        "Output flags hardcoded '$' currency formatting as a localization issue for a worldwide audience",
+        "Output flags the MM/DD/YYYY date format as regionally ambiguous / US-centric",
+        "Output flags fixed-width buttons as at risk of breaking under 30-40% text expansion in translation",
+        "Output frames these under global/i18n readiness rather than treating them as purely visual nitpicks"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Why is my Python function recursing infinitely? def factorial(n): return n * factorial(n)",
+      "expected_output": "This should NOT trigger the ui-ux-reviewer skill — it's a pure logic bug (missing base case) with no visual/UX surface.",
+      "files": [],
+      "expectations": [
+        "Output addresses the missing base case as a plain logic bug",
+        "Output does not produce a UI/UX-style structured report (no severity tags, no scorecard, no WCAG references)"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Can you optimize this SQL query, it's timing out on a table with 10 million rows?",
+      "expected_output": "This should NOT trigger the ui-ux-reviewer skill — backend/performance task with no visual or interaction surface.",
+      "files": [],
+      "expectations": [
+        "Output addresses query optimization (indexing, query plan, etc.)",
+        "Output does not produce a UI/UX-style structured report or reference WCAG/contrast/heuristics content"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Write a one-off bash script that renames all .txt files in a folder to lowercase.",
+      "expected_output": "This should NOT trigger the ui-ux-reviewer skill — throwaway script, no interface involved.",
+      "files": [],
+      "expectations": [
+        "Output is a plain bash script",
+        "Output does not reference UI/UX review concepts, WCAG, or design principles"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "What's a good algorithm to find the shortest path between two nodes in a graph?",
+      "expected_output": "This should NOT trigger the ui-ux-reviewer skill — pure algorithm/DSA question.",
+      "files": [],
+      "expectations": [
+        "Output explains a graph algorithm (e.g. Dijkstra's or BFS)",
+        "Output does not produce a UI/UX-style structured report or reference design/accessibility content"
+      ]
+    }
+  ]
+}
